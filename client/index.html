@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p>Click the button to get your coordinates.</p>
+
+<button onclick="getLocation()">Try It</button>
+
+<p id="demo"></p>
+
+<script>
+var x = document.getElementById("demo");
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else { 
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+const Url='http://localhost:10000/?location=-33.8670522,151.1957362&radius=1500&type=restaurant'
+
+fetch(Url)
+.then(resp => {return resp.text()})
+.then(data => obj = data)
+
+
+//TO DO: Split this into an array and return random entry
+function showPosition(position) {
+  //x.innerHTML = position.coords.latitude + "," + position.coords.longitude;
+  x.innerHTML = obj
+  //x.innerHTML = Math.floor Math.random()/
+}
+</script>
+
+</body>
+</html>
+
