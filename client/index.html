@@ -1,37 +1,50 @@
 <!DOCTYPE html>
 <html>
+<head>
+   <link rel="stylesheet" href="styles.css">
+</head>
 <body>
 
-<p>Click the button to get your coordinates.</p>
+<div class="title">
+  <h1>Effortless Day Planning!</h1>
+</div>
 
-<button onclick="getLocation()">Try It</button>
+<input onclick="getLocation()" id="generateActivity" type="button" class="thumb" value="Click me!"></input>
 
 <p id="demo"></p>
 
 <script>
 var x = document.getElementById("demo");
 
+var places = [];
+
 function getLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition);
-  } else { 
-    x.innerHTML = "Geolocation is not supported by this browser.";
+  if (places.length == 0) {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(getFirstActivity);
+    } else { 
+      x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+  } else {
+    x.innerHTML = places[Math.floor(Math.random() * places.length)]
+    console.log(places)
   }
 }
 
-const Url='http://localhost:10000/?location=-33.8670522,151.1957362&radius=1500&type=restaurant'
-
-fetch(Url)
-.then(resp => {return resp.text()})
-.then(data => obj = data)
-
-
-//TO DO: Split this into an array and return random entry
-function showPosition(position) {
-  //x.innerHTML = position.coords.latitude + "," + position.coords.longitude;
-  x.innerHTML = obj
-  //x.innerHTML = Math.floor Math.random()/
+function getFirstActivity(position, cache) {
+  var coordinates = position.coords.latitude + "," + position.coords.longitude;
+  const Url='http://localhost:10000/?location=' + coordinates + '&radius=10000&type=restaurant'
+  fetch(Url)
+  .then(resp => {return resp.text()})
+  .then(data => places = data.split('\n'))
+  .then(function(show) {
+    places.pop()
+    x.innerHTML = places[Math.floor(Math.random() * places.length)]
+    document.getElementById("generateActivity").value  = "Not good? Click again!";
+  })
 }
+
+
 </script>
 
 </body>
