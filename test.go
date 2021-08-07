@@ -10,7 +10,7 @@ import (
 func homePage(w http.ResponseWriter, r *http.Request) {
 	location := r.URL.Query()["location"][0]
 	destinationType := r.URL.Query()["type"][0]
-	apiKey := "AIzaSyCoKlHo--DXlETVKWKQlW1zt6MJRIutb0c"
+	apiKey := ""
 	resp, err := http.Get("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + location + "&radius=10000&type=" + destinationType + "&key=" + apiKey)
 	if err != nil {
 		fmt.Println(err)
