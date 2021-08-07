@@ -47,6 +47,7 @@ func getNextPage(location string, destinationType string, radius string, apiKey 
 	if err != nil {
 		log.Fatal(err)
 	}
+	fmt.Println(bodyMap)
 	for index, _ := range bodyMap["results"].([]interface{}) {
 		nearbyDestinationCache = append(nearbyDestinationCache, bodyMap["results"].([]interface{})[index].(map[string]interface{})["name"])
 	}

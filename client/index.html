@@ -1,29 +1,7 @@
-<!--- TODO: Implement mapboxgl to visualize activities -->
-<!--- TODO: Switch to mapbox -->
-
 <!DOCTYPE html>
 <html>
 <head>
    <link rel="stylesheet" href="styles.css">
-
-   <meta charset='utf-8' />
-   <title></title>
-   <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-   <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v2.0.0/mapbox-gl.js'></script>
-   <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v2.0.0/mapbox-gl.css' rel='stylesheet' />
-   <style>
-     body {
-       margin: 0;
-       padding: 0;
-     }
-
-     #map {
-       position: absolute;
-       top: 0;
-       bottom: 0;
-       width: 100%;
-     }
-   </style>
 </head>
 <body>
 
@@ -38,25 +16,11 @@
 <script>
 var x = document.getElementById("demo");
 
-var map = new mapboxgl.Map({
-  container: 'map', // HTML container id
-  style: 'mapbox://styles/mapbox/streets-v9', // style URL
-  center: [-21.9270884, 64.1436456], // starting position as [lng, lat]
-  zoom: 13
-});
-
-var places = [];
-
 function getLocation() {
-  if (places.length == 0) {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(getFirstActivity);
-    } else { 
-      x.innerHTML = "Geolocation is not supported by this browser.";
-    }
-  } else {
-    x.innerHTML = places[Math.floor(Math.random() * places.length)]
-    console.log(places)
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else { 
+    x.innerHTML = "Geolocation is not supported by this browser.";
   }
 }
 
