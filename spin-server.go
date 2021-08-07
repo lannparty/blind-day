@@ -60,7 +60,7 @@ func homePage(w http.ResponseWriter, r *http.Request) {
 	location := r.URL.Query()["location"][0]
 	destinationType := r.URL.Query()["type"][0]
 	radius := r.URL.Query()["radius"][0]
-	apiKey := "AIzaSyCoKlHo--DXlETVKWKQlW1zt6MJRIutb0c"
+	apiKey := ""
 	nextPageToken, nearbyDestinationsCache := getFirstPage(location, destinationType, radius, apiKey)
 	for _, j := range nearbyDestinationsCache {
 		nearbyDestinations = append(nearbyDestinations, j)
